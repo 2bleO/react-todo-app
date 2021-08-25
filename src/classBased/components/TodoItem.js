@@ -6,15 +6,19 @@ class TodoItem extends React.Component {
         editing: false,
       }
     
-      handleEditing = () => {this.setState({editing: true,})}
+handleEditing = () => {this.setState({editing: true,})}
       
-      handleUpdatedDone = event => {
-          if (event.key === "Enter") {
-              this.setState({ editing: false })
-            }
-        }
+handleUpdatedDone = event => {
+    if (event.key === "Enter") {
+        this.setState({ editing: false })
+    }
+}
 
-  render() {
+componentWillUnmount() {
+    console.log("Cleaning up...")
+}
+
+render() {
     const completedStyle = {
         fontStyle: "italic",
         color: "#595959",
@@ -22,18 +26,19 @@ class TodoItem extends React.Component {
         textDecoration: "line-through",
       }
       
-      const { completed, id, title } = this.props.todo
-      let viewMode = {}
-let editMode = {}
-
-if (this.state.editing) {
-  viewMode.display = "none"
-} else {
-  editMode.display = "none"
-}
+    const { completed, id, title } = this.props.todo
+    let viewMode = {}
+    let editMode = {}
+    
+    if (this.state.editing) {
+        viewMode.display = "none"
+    } else {
+        editMode.display = "none"
+    }
+    
     return (
-        <li className={styles.item}>
-            <div onDoubleClick={this.handleEditing} style={viewMode} >
+    <li className={styles.item}>
+        <div onDoubleClick={this.handleEditing} style={viewMode} >
     <input
       type="checkbox"
       className={styles.checkbox}
